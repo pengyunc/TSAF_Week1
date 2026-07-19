@@ -1,0 +1,425 @@
+---
+title: |
+  <div class="tight-title">
+    <div>ECOM30004/90004</div>
+    <div>Time Series Analysis and Forecasting</div>
+     <div class="spacer"></div> <!-- blank line -->
+    <div class="bold">Tutorial 1</div>
+
+    <div class="spacer"></div> <!-- blank line -->
+
+    <div class="author">Tutor: Pengyun (Kevin) Chen</div>
+    <div class="author">University of Melbourne</div>
+    <div class="author">Semester 2, 2026</div>
+  </div>
+
+  
+format:
+  revealjs:
+    theme: simple
+    self-contained: false
+    chalkboard: true
+    width: 1300
+    height: 950
+    footer: 'Access Slides: `pengyunc.github.io/TSAF_week1/`'
+    title-slide-attributes:
+      data-background-color: "#000F46"
+    slide-number: true
+    center-title-slide: true
+    toc: false
+    css: styles.css
+    callout-appearance: simple
+    background-transition: fade
+    callout-icon: true
+    transition: slide
+    scrollable: true
+    code-block-height: 800px
+    code-line-numbers: true
+    mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    html-math-method: mathjax
+    execute:
+      echo: true
+      eval: true
+      enabled: true
+---
+
+## Notice
+
+::: {.callout-warning title="Conditions of Use"}
+
+- This document is intended for personal use and is NOT meant to be shared on the internet (e.g. Studocu, ThinkSwap, StudentVIP, Coursehero, etc.)
+- Do not share this document with anyone, even if they are enrolled in ECOM30004/90004.
+- Official course materials, such as lecture slides, tutorial sheets and prescribed readings should always be your primary point of reference.
+
+:::
+
+## A little about me...
+
+- Pengyun (Kevin) Chen  
+- I am a third-year PhD student in Economics.  
+- My research interests are financial econometrics, empirical macro, and more recently, energy economics and sustainable finance.
+
+  
+::: {.callout-tip title="Help me help you"}
+
+Please let me know if:  
+
+- you have got questions to ask and/or I have made some mistakes  
+- you want me to repeat something  
+- you have general feedback/suggestions on improvements  
+
+I really value and appreciate that!
+
+:::
+
+  
+- <span style="color: #094183;">Get in touch:</span> `kevin.chen10@unimelb.edu.au`
+
+
+## Tutorial Preparation and Expectations
+
+::: {.my-list}
+
+- Tutorials start in <blue>Week 1</blue>. I take two tutorials each week:
+
+  <div style="text-align: center;">
+
+  | Day/Time           | Location       | Tutorial Code |
+  |:------------------:|:--------------:|:--------------:|
+  | Wednesday 1:00pm   | The Spot-3014    | T01/06         |
+  | Wednesday 2:00pm    | The Spot-3014   | T01/05         |
+
+  </div>
+
+- The software used for ECOM30004/90004 are **R and RStudio**, so these should be installed onto your computer as you will need them for completing tutorial tasks and assignments.
+
+- From Week 2 the tutorial will build on the lecture and self-directed activities from the previous week. <blue>You are expected to have attended or viewed the lecture and carried out the self-directed activities.</blue>
+
+- There will be a weekly homework submission following each tutorial, starting from Week 2. <grayed>(more on next slide)</grayed>
+
+:::
+
+
+## Tutorial Attendance and Homework (10% Assessment)
+
+- You should attend the tutorial you are officially enrolled in.
+  - You must contact me in advance (e.g. by email) if you need to attend one of my other tutorial sessions.
+  - Approval is subject to available capacity and obtained on a weekly basis.
+- **Starting from Week 3**, each week there will be 1 mark allocated if you *both*
+  - attend the tutorial, *and*
+  - by <blue>11am Monday</blue> submit solutions to the <blue>previous week's</blue> self-directed activities on the LMS.
+  - <blue>**Example:**</blue> the second self-directed activities will be first to be submitted, by Monday 11am of Week 3.
+
+
+## This tutorial
+
+- This tutorial will revise/introduce some relevant R commands for this subject. 
+- Introduce data on Retail sales for Australia that will be used for the first forecasting application in this subject.
+  - Retail sales are considered a key indicator of the health of an economy, and are commonly a target of interest for commercial forecasters.
+  
+<blue>Before starting with the questions, let's warm up by setting up our workspace in RStudio. Usually the first step is to set up the **working directory**.</blue>
+
+
+---
+
+### Warming Up: Setting Up Working Directory in R
+
+::: {.callout-note}
+Setting up the <blue>working directory</blue> ensures that R can accurately locate where your data files are stored. It defines where R looks for files and where it saves outputs.
+:::
+
+To set up your working directory, enter command:
+```{r}
+#| echo: true
+#| eval: false
+
+setwd("Your location goes here")
+```
+<div style="height: 0.5em;"></div>
+Alternatively, you can click on:
+<blue>$$\boxed{\;\textsf{Session}\;}\;\;\to\;\;\boxed{\;\textsf{Set Working Directory}\;}\;\;\to\;\;\boxed{\;\textsf{Choose Directory}\;}$$</blue>
+
+
+On my computer, it looks like:
+<myimage src="figures/figure1.png" width="95%"></myimage>
+
+---
+
+
+### Warming Up: Checking Working Directory in R
+To check your working directory, enter `getwd()` into your Console tab:
+```{r}
+#| echo: true
+#| eval: true
+
+getwd()
+```
+<div style="height: 1em;"></div>
+
+Your working directory is also displayed here (above the Console window):
+<myimage src="figures/figure2.png" width="95%"></myimage>
+
+
+<div style="height: 0.5em;"></div>
+:::{.callout-tip}
+If the folder looks correct, you can proceed to loading the datasets and files.
+:::
+
+
+## Warming Up: Some Useful Functions
+
+- To execute a single line of code:
+<myimage src="figures/figure3.png" width="92%"></myimage>
+
+- To clear Console window:
+<blue>
+$$\begin{aligned}
+\textsf{Windows:}&\;\;\boxed{\;\textsf{Ctrl}\;} + \boxed{\;\textsf{L}\;}\\
+\textsf{Mac:}&\;\;\boxed{\;\textsf{control}\;} + \boxed{\;\textsf{L}\;}\quad\quad\textsf{(Note: not $\boxed{\;\textsf{Command}\;}$)}\\
+\end{aligned}$$
+</blue>
+- To recall the previous command(s) you have entered, press $\boxed{\;\uparrow\;}$ in Console.
+- To obtain help:
+```{r}
+#| echo: true
+#| eval: false
+
+
+help(aggregate)  
+?aggregate           # Same as help() function
+??aggregate          # If you want to know which package it is from
+```
+
+## Question 1
+::: {.callout-question}
+Obtain the data file `RetailSales.csv`, and save it into an appropriate working directory. Read the data into an R dataframe. To get a sense of the variables in the dataframe, use the `head()` command to print out the first six rows of the dataframe. 
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Read data file and create monthly ts object
+dt <- read.csv("RetailSales.csv")
+print(head(dt))
+```
+
+## Question 2
+::: {.callout-question}
+We will focus on the time series of Total retail sales. Create a time series object for monthly total retail sales. Plot this time series.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+#| echo: true
+#| eval: true
+
+Retail_m <- ts(dt$Total, frequency=12, start=c(1982,4), end=c(2024,9))
+plot(Retail_m, main="Monthly Australian Retail Sales",
+  ylab="Retail sales ($m)")
+```
+
+## Question 3(a) {.scrollable .shrink-output}
+::: {.callout-question}
+Use `aggregate` to transform the monthly time series to quarterly frequency. 
+:::
+
+<div style="height: 1em;"></div>
+
+
+```{r}
+#| echo: true
+#| eval: true
+
+Retail_q <- aggregate(Retail_m, nfrequency=4)
+```
+
+<div style="height: 1em;"></div>
+
+❓ What's going on?
+
+::: {.small-output}
+```{r}
+#| echo: true
+#| eval: true
+
+print(Retail_m)
+```
+
+<div style="height: 1em;"></div>
+```{r}
+#| echo: true
+#| eval: true
+
+print(Retail_q)
+```
+:::
+<div style="height: 0.5em;"></div>
+::: {.callout-note}
+`aggregate` generates a new series, `Retail_q`, by summing up the monthly observations of each quarter.
+:::
+
+## Question 3(b)
+::: {.callout-question}
+Create a window of this quarterly time series from 2000q1 to 2018q4, and produce a time series plot.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+#| echo: true
+#| eval: true
+S_t <- window(Retail_q, start=c(2000,1), end=c(2018,4))
+plot(S_t, main="Quarterly Australian Retail Sales",
+  ylab="Retail sales ($m)")
+```
+
+
+## Question 4
+::: {.callout-question}
+Take the log of the quarterly time series and produce a plot.
+:::
+
+<div style="height: 1em;"></div>
+```{r}
+Y_t <- log(S_t)
+plot(Y_t, main="Retail sales (log), 2000q1 to 2018q4")
+```
+
+## Questions 5 and 6
+::: {.callout-question}
+Denote the log retail sales time series as $Y_{t}$. Create the *first difference* time series
+$$\Delta Y_{t}=Y_{t}-Y_{t-1}$$
+Print out the first six values of $Y_{t}$ and $\Delta Y_{t}$. What’s going on with the value of 
+$\Delta Y_{t}$ for 2000q1?
+:::
+
+<div style="height: 1em;"></div>
+```{r}
+# First difference of quarterly log retail sales Y_t, convert to pct
+D_Y_t <- diff(Y_t)*100
+print(round(head(cbind(Y_t,D_Y_t)),4))
+```
+<div style="height: 0.5em;"></div>
+::: {.callout-note}
+The first value in `D_Y_t` is missing (`NA`) because there is no value of `Y_t` available before 10.3685 to compute the difference. Taking a difference of a time series will necessarily result in a shorter time series because of this.
+:::
+
+## Question 7
+::: {.callout-question}
+Denote the quarterly retail sales time series by $S_{t}$. Create a time series of the quarterly percentage change (growth rate) of this time series, that is
+$$R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%.$$
+Compare the values of $\Delta Y_{t}$ and $R_{t}$.
+:::
+<div style="height: 1em;"></div>
+```{r}
+# Percentage change of retail sales
+R_t <- diff(S_t)/lag(S_t,-1)*100
+# Compare
+print(round(head(cbind(D_Y_t, R_t)),4))
+```
+
+
+## Question 7
+::: {.callout-question}
+Denote the quarterly retail sales time series by $S_{t}$. Create a time series of the quarterly percentage change (growth rate) of this time series, that is
+$$R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%.$$
+Compare the values of $\Delta Y_{t}$ and $R_{t}$.
+:::
+<div style="height: 1em;"></div>
+
+What does `lag(S_t, -1)` function do?
+
+```{r}
+print(head(cbind(lag(S_t,-1),S_t)))
+```
+
+## Question 7 ctd: Why the comparison?
+
+:::{.incremental}
+- Adding 1 on both sides and take logs:
+\begin{align}
+R_{t}&=\frac{S_{t}-S_{t-1}}{S_{t-1}}\\
+1+R_{t}&=\frac{S_{t}}{S_{t-1}}\\
+\log(1+R_{t})&=\log(S_{t})-\log(S_{t-1})\\
+\log(1+R_{t})&=Y_{t}-Y_{t-1}\equiv\Delta Y_{t}
+\end{align}
+- Then with the <blue>approximation $\log(1+R_{t})\approx R_{t}$</blue> for small values of $R_{t}$, we have $R_{t}\approx \Delta Y_{t}$:
+$$\text{$R_{t}\approx\log(1+R_{t})$}= \Delta Y_{t}$$
+:::
+
+## Question 7 continued
+
+Why is $\ln(1+x)\approx x$ for small values of $x$?
+<div style="height: 0.5em;"></div>
+<iframe width="1300" height="750" src="https://www.desmos.com/calculator" title="Desmos"></iframe>
+
+
+## Question 7 ctd: Some further observations (1/2)
+::: {.callout-question}
+Denote the quarterly retail sales time series by $S_{t}$. Create a time series of the quarterly percentage change (growth rate) of this time series,
+$R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%$.
+
+Compare the values of $\Delta Y_{t}$ and $R_{t}$.
+:::
+<div style="height: 0.5em;"></div>
+
+::: {.callout-note}
+The values of $\log S_{t}-\log S_{t-1}$ and $R_{t}=(S_{t}-S_{t-1})/S_{t-1}$ are quite similar especially for the smaller changes.
+:::
+
+<div style="height: 0.5em;"></div>
+For the entire time series the two variables are very highly correlated:
+```{r}
+print(cor(R_t, D_Y_t))
+print(round(cor(R_t, D_Y_t), 3))
+```
+
+
+## Question 7 ctd: Some further observations (2/2)
+
+::: {.callout-note}
+The values of $\log S_{t}-\log S_{t-1}$ and $R_{t}=(S_{t}-S_{t-1})/S_{t-1}$ are quite similar especially for the smaller changes.
+:::
+<div style="height: 0.5em;"></div>
+
+This is also evident in the plot shown below:
+```{r}
+plot(as.numeric(R_t), as.numeric(D_Y_t), pch=16, cex=0.7,
+     xlab="Rt", ylab="DYt")
+lines(as.numeric(R_t), as.numeric(R_t), col="blue")
+```
+
+
+## Question 7 ctd: Why taking logs differences?
+
+- Taking log differences or simple returns is a common type of <blue>"filtering"</blue> in time series analysis.
+- Filtering tends to stablise/linearise features such as trend and seasonality.
+- Changes in a logged time series can be interpreted as approximately percentage changes, which is often convenient.
+- Also, time series models, such as AR models and VAR models, requires data to be *stationary* <blue>$\to$ filtering/transformation ensures this requirement is met. </blue>
+
+
+## {data-background-color="#000F46"}
+<div style="height: 85vh; display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">
+Thank you for coming!
+</div>
+
+
+<script>
+document.querySelectorAll("myimage").forEach(el => {
+  const src = el.getAttribute("src");
+  const width = el.getAttribute("width") || "100%";
+
+  const img = document.createElement("img");
+  img.src = src;
+  img.style.width = width;
+  img.style.maxWidth = "100%";  // prevent overflow
+  el.style.display = "block";
+  el.style.textAlign = "center";
+  
+  el.appendChild(img);
+});
+</script>

@@ -1,0 +1,13 @@
+project:
+  type: website
+  resources:
+    - styles.css
+    - fonts/**
+    - figures/**
+    - ECOM30004_Tutorial_1_files/**
+
+format:
+  revealjs:
+    chalkboard: true
+    self-contained: false
+    css: styles.css
