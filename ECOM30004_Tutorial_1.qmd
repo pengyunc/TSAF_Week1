@@ -21,7 +21,7 @@ format:
     chalkboard: true
     width: 1300
     height: 950
-    footer: 'Access Slides: `pengyunc.github.io/TSAF_week1/`'
+    footer: 'Access Slides: `pengyunc.github.io/TSAF_Week1/`'
     title-slide-attributes:
       data-background-color: "#000F46"
     slide-number: true
