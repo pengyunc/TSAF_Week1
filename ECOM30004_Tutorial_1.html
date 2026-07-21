@@ -9,7 +9,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
 
-  <title>quarto-input770871807a2020a0</title>
+  <title>quarto-input2689862f2549675d</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -463,11 +463,23 @@ Semester 2, 2026
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>Retail_q <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Retail_m, <span class="at">nfrequency=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div style="height: 1em;">
+<div style="height: 0.5em;">
 
 </div>
-<p>❓ What’s going on?</p>
-<div class="small-output">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><code>aggregate</code> generates a new series, <code>Retail_q</code>, by summing up the monthly observations of each quarter.</p>
+</div>
+</div>
+</div>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1"><code>Retail_m</code></a></li><li><a href="#tabset-1-2"><code>Retail_q</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">print</span>(Retail_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -561,9 +573,8 @@ Semester 2, 2026
 2024                        </code></pre>
 </div>
 </div>
-<div style="height: 1em;">
-
 </div>
+<div id="tabset-1-2">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">print</span>(Retail_q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -613,17 +624,6 @@ Semester 2, 2026
 2024 102616.9 104242.5 106410.9         </code></pre>
 </div>
 </div>
-</div>
-<div style="height: 0.5em;">
-
-</div>
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><code>aggregate</code> generates a new series, <code>Retail_q</code>, by summing up the monthly observations of each quarter.</p>
 </div>
 </div>
 </div>
@@ -693,8 +693,8 @@ Semester 2, 2026
 </div>
 </div>
 </section>
-<section id="question-7" class="slide level2">
-<h2>Question 7</h2>
+<section id="question-7" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Question 7</h2>
 <div class="callout-question">
 <p>Denote the quarterly retail sales time series by <span class="math inline">\(S_{t}\)</span>. Create a time series of the quarterly percentage change (growth rate) of this time series, that is <span class="math display">\[R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%.\]</span> Compare the values of <span class="math inline">\(\Delta Y_{t}\)</span> and <span class="math inline">\(R_{t}\)</span>.</p>
 </div>
@@ -702,10 +702,10 @@ Semester 2, 2026
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Percentage change of retail sales</span></span>
-<span id="cb17-2"><a></a>R_t <span class="ot">&lt;-</span> <span class="fu">diff</span>(S_t)<span class="sc">/</span><span class="fu">lag</span>(S_t,<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb17-3"><a></a><span class="co"># Compare</span></span>
-<span id="cb17-4"><a></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">head</span>(<span class="fu">cbind</span>(D_Y_t, R_t)),<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb17-1" class="hljs-ln-code"><a></a><span class="co"># Percentage change of retail sales</span></span>
+<span id="cb17-2" class="hljs-ln-code"><a></a>R_t <span class="ot">&lt;-</span> <span class="fu">diff</span>(S_t)<span class="sc">/</span><span class="fu">lag</span>(S_t,<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb17-3" class="hljs-ln-code"><a></a><span class="co"># Compare</span></span>
+<span id="cb17-4" class="hljs-ln-code"><a></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">head</span>(<span class="fu">cbind</span>(D_Y_t, R_t)),<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           D_Y_t      R_t
 2000 Q2   4.5997   4.7071
@@ -717,8 +717,8 @@ Semester 2, 2026
 </div>
 </div>
 </section>
-<section id="question-7-1" class="slide level2">
-<h2>Question 7</h2>
+<section id="question-7-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Question 7</h2>
 <div class="callout-question">
 <p>Denote the quarterly retail sales time series by <span class="math inline">\(S_{t}\)</span>. Create a time series of the quarterly percentage change (growth rate) of this time series, that is <span class="math display">\[R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%.\]</span> Compare the values of <span class="math inline">\(\Delta Y_{t}\)</span> and <span class="math inline">\(R_{t}\)</span>.</p>
 </div>
@@ -727,7 +727,7 @@ Semester 2, 2026
 </div>
 <p>What does <code>lag(S_t, -1)</code> function do?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">print</span>(<span class="fu">head</span>(<span class="fu">cbind</span>(<span class="fu">lag</span>(S_t,<span class="sc">-</span><span class="dv">1</span>),S_t)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb19-1" class="hljs-ln-code"><a></a><span class="fu">print</span>(<span class="fu">head</span>(<span class="fu">cbind</span>(<span class="fu">lag</span>(S_t,<span class="sc">-</span><span class="dv">1</span>),S_t)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        lag(S_t, -1)     S_t
 2000 Q1           NA 31839.1
