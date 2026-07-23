@@ -21,7 +21,7 @@ format:
     chalkboard: true
     width: 1300
     height: 950
-    footer: 'Access Slides: `pengyunc.github.io/TSAF_Week1/`'
+    footer: 'Access Slides: `pengyunc.github.io/TSAF_week1/`'
     title-slide-attributes:
       data-background-color: "#000F46"
     slide-number: true
@@ -237,11 +237,14 @@ Use `aggregate` to transform the monthly time series to quarterly frequency.
 Retail_q <- aggregate(Retail_m, nfrequency=4)
 ```
 
-<div style="height: 1em;"></div>
+<div style="height: 0.5em;"></div>
+::: {.callout-note}
+`aggregate` generates a new series, `Retail_q`, by summing up the monthly observations of each quarter.
+:::
 
-❓ What's going on?
+::: {.panel-tabset}
 
-::: {.small-output}
+## `Retail_m`
 ```{r}
 #| echo: true
 #| eval: true
@@ -249,17 +252,14 @@ Retail_q <- aggregate(Retail_m, nfrequency=4)
 print(Retail_m)
 ```
 
-<div style="height: 1em;"></div>
+## `Retail_q`
 ```{r}
 #| echo: true
 #| eval: true
 
 print(Retail_q)
 ```
-:::
-<div style="height: 0.5em;"></div>
-::: {.callout-note}
-`aggregate` generates a new series, `Retail_q`, by summing up the monthly observations of each quarter.
+
 :::
 
 ## Question 3(b)
@@ -308,7 +308,7 @@ print(round(head(cbind(Y_t,D_Y_t)),4))
 The first value in `D_Y_t` is missing (`NA`) because there is no value of `Y_t` available before 10.3685 to compute the difference. Taking a difference of a time series will necessarily result in a shorter time series because of this.
 :::
 
-## Question 7
+## Question 7 {auto-animate="true"}
 ::: {.callout-question}
 Denote the quarterly retail sales time series by $S_{t}$. Create a time series of the quarterly percentage change (growth rate) of this time series, that is
 $$R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%.$$
@@ -323,7 +323,7 @@ print(round(head(cbind(D_Y_t, R_t)),4))
 ```
 
 
-## Question 7
+## Question 7 {auto-animate="true"}
 ::: {.callout-question}
 Denote the quarterly retail sales time series by $S_{t}$. Create a time series of the quarterly percentage change (growth rate) of this time series, that is
 $$R_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}\times 100\%.$$
